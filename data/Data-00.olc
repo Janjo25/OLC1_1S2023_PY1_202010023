@@ -1,0 +1,17 @@
+﻿{
+  // Single-line comment.
+  CONJ: digit -> 0~9;
+  CONJ: letter -> a~z;
+
+  <!Block
+  comment.!>
+  ER -> .{letter} * | "_" | {letter} {digit};
+  ExRe -> .{digit} * . "." + {digit};
+  ExpReg -> .{digit} * |"_" | {letter} {digit};
+
+  %%
+  %%
+
+  ER: "PrimerLexemaCokoa";
+  ExRe: "35.50";
+}
