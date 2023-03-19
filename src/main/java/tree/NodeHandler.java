@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public final class NodeHandler {
+    int nodeNumber;
     int leafNumber;
 
     boolean isAcceptanceNode;
@@ -24,6 +25,7 @@ public final class NodeHandler {
     ArrayList<ArrayList<Object>> followPosAL;
 
     public NodeHandler(
+            int nodeNumber,
             String lexeme,
             Operator operator,
             int leafNumber,
@@ -33,6 +35,7 @@ public final class NodeHandler {
             ArrayList<ArrayList<Object>> followPosAL
     ) {
         /*AL = ArrayList*/
+        this.nodeNumber = nodeNumber;
         this.leafNumber = leafNumber;
 
         this.lexeme = lexeme;

@@ -12,6 +12,8 @@ public final class NodeInitializer {  // Ya que la clase no hereda nada de otra 
         /*AL = ArrayList*/
         LeafNumberAssigner leafNumberAssigner = new LeafNumberAssigner(regExp);
 
+        TreeVisualizer treeVisualizer = new TreeVisualizer();
+
         Stack<NodeHandler> stackNodes = new Stack<>();
 
         String[] arraySplitRE = regExp.replace(" ", "").split("");
@@ -20,23 +22,27 @@ public final class NodeInitializer {  // Ya que la clase no hereda nada de otra 
 
         Collections.reverse(arrayListRECharacters);  // Una ER en notación polaca se lee de derecha a izquierda.
 
-        arrayListRECharacters.forEach((character) -> {
+        int nodeNum = 0;
+
+        for (String character : arrayListRECharacters) {
             switch (character) {
                 case "?", "*", "+" -> {
                     /*La pila se usa para almacenar temporalmente los nodos, antes de que se usen para armar el árbol.
                      * Los nodos hoja solamente se apilan, porque no tienen nodos hijos.
                      * Los operadores unarios solamente tienen un nodo hijo, por lo que solamente se retira un nodo.
                      * Los operadores binarios tienen dos nodos hijos, por ello se retiran dos nodos.*/
-                    NodeHandler unaryNode = stackNodes.pop();
+                    NodeHandler nodeU = stackNodes.pop();  // nodeU = unaryNode.
 
-                    Operator operator = switch (character) {
+                    Operator op = switch (character) {
                         case "?" -> Operator.OPTIONAL;
                         case "*" -> Operator.KLEENE;
                         case "+" -> Operator.POSITIVE;
                         default -> throw new IllegalArgumentException();
                     };
 
-                    NodeHandler node = new NodeHandler(character, operator, 0, unaryNode, null, leavesAL, followPosAL);
+                    NodeHandler node = new NodeHandler(nodeNum, character, op, 0, nodeU, null, leavesAL, followPosAL);
+
+                    treeVisualizer.createAST(false, node);
 
                     stackNodes.push(node);
                 }
@@ -44,13 +50,15 @@ public final class NodeInitializer {  // Ya que la clase no hereda nada de otra 
                     NodeHandler nodeL = stackNodes.pop();
                     NodeHandler nodeR = stackNodes.pop();
 
-                    Operator operator = switch (character) {
+                    Operator op = switch (character) {
                         case "." -> Operator.CONCATENATION;
                         case "|" -> Operator.ALTERNATION;
                         default -> throw new IllegalArgumentException();
                     };
 
-                    NodeHandler node = new NodeHandler(character, operator, 0, nodeL, nodeR, leavesAL, followPosAL);
+                    NodeHandler node = new NodeHandler(nodeNum, character, op, 0, nodeL, nodeR, leavesAL, followPosAL);
+
+                    treeVisualizer.createAST(false, node);
 
                     stackNodes.push(node);  // Los nodos que se sacaron de la pila ahora están unidos con el operador.
                 }
@@ -58,14 +66,18 @@ public final class NodeInitializer {  // Ya que la clase no hereda nada de otra 
                     Operator foo = Operator.LEAF;
                     int bar = leafNumberAssigner.assignLeafNumber();
 
-                    NodeHandler node = new NodeHandler(character, foo, bar, null, null, leavesAL, followPosAL);
+                    NodeHandler node = new NodeHandler(nodeNum, character, foo, bar, null, null, leavesAL, followPosAL);
 
                     leavesAL.add(node);
 
                     stackNodes.push(node);
                 }
             }
-        });
+
+            nodeNum++;
+        }
+
+        treeVisualizer.createAST(true, null);
 
         this.rootNode = stackNodes.pop();  // El carácter que se encuentre más a la izquierda será la raíz.
     }
