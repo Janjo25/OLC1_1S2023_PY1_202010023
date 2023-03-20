@@ -1,5 +1,10 @@
 package main.java.tree;
 
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public final class FollowPosHandler {
@@ -42,6 +47,46 @@ public final class FollowPosHandler {
     public void printFollowPos(ArrayList<ArrayList<Object>> arrayListFollowPos) {
         for (ArrayList<Object> nodeFollowPos : arrayListFollowPos) {
             System.out.println(nodeFollowPos.get(0) + " | " + nodeFollowPos.get(1) + " | " + nodeFollowPos.get(2));
+        }
+    }
+
+    public void createFollowPosTable(ArrayList<ArrayList<Object>> arrayListFollowPos) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("digraph {");
+        stringBuilder.append("FollowPos [");
+        stringBuilder.append("label = <<table>");
+        stringBuilder.append("<tr><td>Valor</td><td>Hoja</td><td>Siguientes</td></tr>");
+
+        for (ArrayList<Object> nodeFollowPos : arrayListFollowPos) {
+            String foo = nodeFollowPos.get(0).toString();
+            String bar = nodeFollowPos.get(1).toString();
+            String baz = nodeFollowPos.get(2).toString();
+
+            String qux = "</td><td>";
+            String waldo = "</td></tr>";
+
+            stringBuilder.append("<tr><td>").append(foo).append(qux).append(bar).append(qux).append(baz).append(waldo);
+        }
+
+        stringBuilder.append("</table>>");
+        stringBuilder.append(",shape = none];");
+        stringBuilder.append("}");
+
+        int fileNumber = 1;
+
+        File file = new File("data/FollowPos/FollowPos.png");
+
+        while (file.exists()) {
+            file = new File("data/FollowPos/FollowPos " + "(" + fileNumber + ")" + ".png");
+
+            fileNumber++;
+        }
+
+        try {
+            Graphviz.fromString(stringBuilder.toString()).render(Format.PNG).toFile(file);
+        } catch (IOException fileIOException) {
+            System.err.println("Se produjo un error al intentar guardar la imagen.");
         }
     }
 }
