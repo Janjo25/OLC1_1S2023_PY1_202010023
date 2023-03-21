@@ -157,7 +157,11 @@ public final class TransitionHandler {
         stringBuilder.append("digraph {");
         stringBuilder.append("TransitionsTable [");
         stringBuilder.append("label = <<table>");
-        stringBuilder.append("<tr><td rowspan=\"2\" colspan=\"2\">Estado</td><td colspan=\"2\">Σ</td></tr>");
+
+        stringBuilder.append("<tr>");
+        stringBuilder.append("<td rowspan=\"2\" colspan=\"2\">Estado</td>");
+        stringBuilder.append("<td colspan=\"").append(hashSetHeaders.size()).append("\">Σ</td>");
+        stringBuilder.append("</tr>");
 
         stringBuilder.append("<tr>");
 
@@ -206,6 +210,7 @@ public final class TransitionHandler {
         }
     }
 
+    @SuppressWarnings({"unchecked", "SpellCheckingInspection"})
     public void createDFA() {
         StringBuilder stringBuilder = new StringBuilder();
 
