@@ -1,9 +1,18 @@
 package main.java.tree;
 
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class TransitionHandler {
     int stateNumber;
+
+    Set<String> hashSetHeaders = new HashSet<>();
 
     ArrayList<ArrayList<Object>> arrayListTransitions;
 
@@ -80,6 +89,8 @@ public final class TransitionHandler {
                     newState.add(new ArrayList<>());
                     newState.add(false);
 
+                    hashSetHeaders.add(followPosConstructorAL.get(0).toString());
+
                     TransitionBuilder builder = new TransitionBuilder(
                             arrayListState.get(0).toString(),
                             followPosConstructorAL.get(0).toString(),
@@ -105,6 +116,8 @@ public final class TransitionHandler {
                     }
 
                     if (!isDuplicateTransition) {
+                        hashSetHeaders.add(followPosConstructorAL.get(0).toString());
+
                         TransitionBuilder builder = new TransitionBuilder(
                                 arrayListState.get(0).toString(),
                                 followPosConstructorAL.get(0).toString(),
@@ -134,6 +147,61 @@ public final class TransitionHandler {
             String[] foo = {state.get(0).toString(), state.get(1).toString(), state.get(3).toString()};
 
             System.out.println(foo[0] + " | " + foo[1] + " | " + stringBuilder + " | " + foo[2]);
+        }
+    }
+
+    public void createTransitionsTable() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("digraph {");
+        stringBuilder.append("TransitionsTable [");
+        stringBuilder.append("label = <<table>");
+        stringBuilder.append("<tr><td rowspan=\"2\" colspan=\"2\">Estado</td><td colspan=\"2\">Σ</td></tr>");
+
+        stringBuilder.append("<tr>");
+
+        for (String header : hashSetHeaders) {
+            stringBuilder.append("<td>").append(header).append("</td>");
+        }
+
+        stringBuilder.append("</tr>");
+
+        for (ArrayList<Object> state : arrayListTransitions) {
+            stringBuilder.append("<tr>");
+
+            stringBuilder.append("<td colspan=\"2\">").append(state.get(0)).append("</td>");
+
+            for (String lexeme : hashSetHeaders) {
+                stringBuilder.append("<td>");
+
+                ArrayList<TransitionBuilder> foo = (ArrayList<TransitionBuilder>) state.get(2);
+
+                stringBuilder.append(TransitionBuilder.transitionChecker(lexeme, foo));
+
+                stringBuilder.append("</td>");
+            }
+
+            stringBuilder.append("</tr>");
+        }
+
+        stringBuilder.append("</table>>");
+        stringBuilder.append(",shape = none];");
+        stringBuilder.append("}");
+
+        int fileNumber = 1;
+
+        File file = new File("data/Transitions/Transitions.png");
+
+        while (file.exists()) {
+            file = new File("data/Transitions/Transitions " + "(" + fileNumber + ")" + ".png");
+
+            fileNumber++;
+        }
+
+        try {
+            Graphviz.fromString(stringBuilder.toString()).render(Format.PNG).toFile(file);
+        } catch (IOException fileIOException) {
+            System.err.println("Se produjo un error al intentar guardar la imagen.");
         }
     }
 }
