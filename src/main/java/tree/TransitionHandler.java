@@ -205,4 +205,48 @@ public final class TransitionHandler {
             System.err.println("Se produjo un error al intentar guardar la imagen.");
         }
     }
+
+    public void createDFA() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("digraph {");
+        stringBuilder.append("rankdir = LR;");
+        stringBuilder.append("node [shape = circle];");
+
+        for (ArrayList<Object> state : arrayListTransitions) {
+            for (TransitionBuilder transition : (ArrayList<TransitionBuilder>) state.get(2)) {
+                String foo = transition.destinationState;
+
+                if ((Boolean) state.get(3)) {
+                    stringBuilder.append("\"").append(foo).append("\"").append(" [shape = doublecircle];");
+                }
+
+                stringBuilder.append("\"").append(transition.initialState).append("\"");
+
+                stringBuilder.append(" -> ");
+
+                stringBuilder.append("\"").append(foo).append("\"");
+
+                stringBuilder.append(" [label = \"").append(transition.lexeme).append("\"];");
+            }
+        }
+
+        stringBuilder.append("}");
+
+        int fileNumber = 1;
+
+        File file = new File("data/DFAs/DFA.png");
+
+        while (file.exists()) {
+            file = new File("data/DFAs/DFA " + "(" + fileNumber + ")" + ".png");
+
+            fileNumber++;
+        }
+
+        try {
+            Graphviz.fromString(stringBuilder.toString()).render(Format.PNG).toFile(file);
+        } catch (IOException fileIOException) {
+            System.err.println("Se produjo un error al intentar guardar la imagen.");
+        }
+    }
 }
