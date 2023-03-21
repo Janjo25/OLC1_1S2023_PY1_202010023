@@ -150,6 +150,7 @@ public final class TransitionHandler {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void createTransitionsTable() {
         StringBuilder stringBuilder = new StringBuilder();
 
