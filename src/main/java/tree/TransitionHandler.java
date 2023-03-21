@@ -63,11 +63,11 @@ public final class TransitionHandler {
 
                 String duplicateConstructorFollowPosState = null;  // 5.
 
-                for (ArrayList<Object> arrayListTransition : this.arrayListTransitions) {  // 6.
-                    if (arrayListTransition.get(1).equals(followPosConstructorAL.get(1))) {
+                for (ArrayList<Object> state : this.arrayListTransitions) {  // 6.
+                    if (state.get(1).equals(followPosConstructorAL.get(1))) {
                         isDuplicateConstructorFollowPos = true;
 
-                        duplicateConstructorFollowPosState = arrayListTransition.get(0).toString();
+                        duplicateConstructorFollowPosState = state.get(0).toString();
 
                         break;
                     }
@@ -107,8 +107,8 @@ public final class TransitionHandler {
 
                     String[] bar = {arrayListState.get(0).toString(), followPosConstructorAL.get(0).toString()};
 
-                    for (TransitionBuilder builder : (ArrayList<TransitionBuilder>) arrayListState.get(2)) {  // 9.
-                        if (builder.duplicateChecker(bar[0], bar[1])) {
+                    for (TransitionBuilder transition : (ArrayList<TransitionBuilder>) arrayListState.get(2)) {  // 9.
+                        if (transition.duplicateChecker(bar[0], bar[1])) {
                             isDuplicateTransition = true;
 
                             break;
@@ -136,8 +136,8 @@ public final class TransitionHandler {
         for (ArrayList<Object> state : arrayListTransitions) {
             StringBuilder stringBuilder = new StringBuilder("[");
 
-            for (TransitionBuilder builder : (ArrayList<TransitionBuilder>) state.get(2)) {
-                stringBuilder.append(builder.toString()).append(", ");
+            for (TransitionBuilder transition : (ArrayList<TransitionBuilder>) state.get(2)) {
+                stringBuilder.append(transition.toString()).append(", ");
             }
 
             stringBuilder.append("]");
