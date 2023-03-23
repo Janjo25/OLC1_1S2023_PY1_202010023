@@ -24,16 +24,17 @@ public final class TransitionHandler {
          * 2. Estos son los valores que se colocan en la columna "valores" del constructor de la tabla de transiciones.
          * 3. Método para obtener los "siguientes" de cada hoja de la tabla de siguientes.
          * Estos son los valores que se colocan en la columna "siguientes" del constructor de la tabla de transiciones.
-         * 4. Booleano que se usará para indicar si es la primera vez que aparece un conjunto de "siguientes".
-         * 5. Cadena que es utilizada para guardar el nombre del estado al que pertenecen los "siguientes" duplicados.
-         * 6. Bucle que será empleado para comparar los "siguientes" entre dos "ArrayList".
+         * 4. Con un "HashSet" se asegura de que un valor que se haya unido con otro no se analice de nuevo.
+         * 5. Booleano que se usará para indicar si es la primera vez que aparece un conjunto de "siguientes".
+         * 6. Cadena que es utilizada para guardar el nombre del estado al que pertenecen los "siguientes" duplicados.
+         * 7. Bucle que será empleado para comparar los "siguientes" entre dos "ArrayList".
          * Esto se hace para ver si es la primera vez que aparece un conjunto de "siguientes".
          * Si es la primera vez que aparece, entonces es posible crear un nuevo estado.
          * Si no es la primera vez que aparece, solamente se señalará que es posible la transición a ese estado.
-         * 7. Condicional que revisará si el estado actual es de aceptación.
-         * 8. Condicional que verificará si se ha llegado al nodo que contiene el símbolo de aceptación.
+         * 8. Condicional que revisará si el estado actual es de aceptación.
+         * 9. Condicional que verificará si se ha llegado al nodo que contiene el símbolo de aceptación.
          * El nodo que contenga el símbolo de aceptación no será tomado en cuenta.
-         * 9. Bucle que se usará para comprobar que los lexemas no tengan transiciones duplicadas en el estado.*/
+         * 10. Bucle que se usará para comprobar que los lexemas no tengan transiciones duplicadas en el estado.*/
         ArrayList<Object> arrayListInitialState = new ArrayList<>();
 
         arrayListInitialState.add("S-0");  // Creación del estado de transición inicial.
@@ -52,18 +53,25 @@ public final class TransitionHandler {
 
             ArrayList<Integer> arrayListConstructorValues = (ArrayList<Integer>) arrayListState.get(1);  // 2.
 
-            for (int leafNumber : arrayListConstructorValues) {
-                NodeGetter nodeGetter = new NodeGetter();
+            NodeGetter nodeGetter = new NodeGetter();
 
-                Object foo = nodeGetter.getNodeFollowPos(leafNumber, FollowAl).clone();  // 3.
+            loopArrayListConstructorValues:
+            for (int leafNumber : arrayListConstructorValues) {
+                Object foo = nodeGetter.getNodeFollowPos(true, leafNumber, FollowAl).clone();  // 3.
 
                 ArrayList<Object> followPosConstructorAL = (ArrayList<Object>) foo;
 
-                boolean isDuplicateConstructorFollowPos = false;  // 4.
+                for (Object followPos : nodeGetter.hashSetMergedLexemeFollowPos) {  // 4.
+                    if (followPos.toString().equals(followPosConstructorAL.toString())) {
+                        continue loopArrayListConstructorValues;  // Usamos la etiqueta para especificar el bucle.
+                    }
+                }
 
-                String duplicateConstructorFollowPosState = null;  // 5.
+                boolean isDuplicateConstructorFollowPos = false;  // 5.
 
-                for (ArrayList<Object> state : this.arrayListTransitions) {  // 6.
+                String duplicateConstructorFollowPosState = null;  // 6.
+
+                for (ArrayList<Object> state : this.arrayListTransitions) {  // 7.
                     if (state.get(1).equals(followPosConstructorAL.get(1))) {
                         isDuplicateConstructorFollowPos = true;
 
@@ -73,12 +81,12 @@ public final class TransitionHandler {
                     }
                 }
 
-                if (nodeGetter.getAcceptanceNode(leafNumber, leavesAL)) {  // 7.
+                if (nodeGetter.getAcceptanceNode(leafNumber, leavesAL)) {  // 8.
                     arrayListState.set(3, true);
                 }
 
                 if (!isDuplicateConstructorFollowPos) {
-                    if (followPosConstructorAL.get(0) == null) {  // 8.
+                    if (followPosConstructorAL.get(0) == null) {  // 9.
                         continue;
                     }
 
@@ -107,7 +115,7 @@ public final class TransitionHandler {
 
                     String[] bar = {arrayListState.get(0).toString(), followPosConstructorAL.get(0).toString()};
 
-                    for (TransitionBuilder transition : (ArrayList<TransitionBuilder>) arrayListState.get(2)) {  // 9.
+                    for (TransitionBuilder transition : (ArrayList<TransitionBuilder>) arrayListState.get(2)) {  // 10.
                         if (transition.duplicateChecker(bar[0], bar[1])) {
                             isDuplicateTransition = true;
 

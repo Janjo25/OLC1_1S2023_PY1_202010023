@@ -19,7 +19,7 @@ public final class NodeGetter {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "GrazieInspection"})
     public ArrayList<Object> getNodeFollowPos(
             boolean flagRecursion,
             int leafNumber,
