@@ -16,7 +16,7 @@ public final class NodeInitializer {  // Ya que la clase no hereda nada de otra 
 
         Stack<NodeHandler> stackNodes = new Stack<>();
 
-        String[] arraySplitRE = regExp.replace(" ", "").split("");
+        String[] arraySplitRE = regExp.split("");
 
         ArrayList<String> arrayListRECharacters = new ArrayList<>(Arrays.asList(arraySplitRE));
 
