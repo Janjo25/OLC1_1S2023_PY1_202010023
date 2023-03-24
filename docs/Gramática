@@ -1,0 +1,34 @@
+program ::= LEFT_CURLY_BRACKET code_block RIGHT_CURLY_BRACKET
+
+code_block ::= sets regular_expression_input SEPARATOR SEPARATOR regular_expression_output
+
+sets ::= sets CONJ COLON IDENTIFIER ARROW notation SEMICOLON
+       | CONJ COLON IDENTIFIER ARROW notation SEMICOLON
+
+notation ::= tilde_set
+           | comma_set
+
+tilde_set ::= range TILDE range
+
+comma_set ::= range COMMA comma_set
+            | range
+
+range ::= DIGIT
+        | LETTER
+        | SYMBOL
+
+regular_expression_input ::= regular_expression_input IDENTIFIER ARROW regular_expression SEMICOLON
+                           | IDENTIFIER ARROW regular_expression SEMICOLON
+
+regular_expression ::= ALTERNATION regular_expression regular_expression
+                     | ASTERISK regular_expression
+                     | CONCATENATION regular_expression regular_expression
+                     | PLUS regular_expression
+                     | QUESTION_MARK regular_expression
+                     | characters
+
+characters ::= STRING
+             | LEFT_CURLY_BRACKET IDENTIFIER RIGHT_CURLY_BRACKET
+
+regular_expression_output ::= regular_expression_output IDENTIFIER COLON STRING SEMICOLON
+                            | IDENTIFIER COLON STRING SEMICOLON
