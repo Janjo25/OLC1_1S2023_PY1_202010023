@@ -12,19 +12,54 @@ public final class NodeInitializer {  // Ya que la clase no hereda nada de otra 
         /*AL = ArrayList*/
         LeafNumberAssigner leafNumberAssigner = new LeafNumberAssigner(regExp);
 
-        TreeVisualizer treeVisualizer = new TreeVisualizer();
-
         Stack<NodeHandler> stackNodes = new Stack<>();
 
-        String[] arraySplitRE = regExp.replace(" ", "").split("");
+        String[] arraySplitRE = regExp.split("");
 
         ArrayList<String> arrayListRECharacters = new ArrayList<>(Arrays.asList(arraySplitRE));
 
         Collections.reverse(arrayListRECharacters);  // Una ER en notación polaca se lee de derecha a izquierda.
 
+        StringBuilder stringBuilder = new StringBuilder();
+
         int nodeNum = 0;
 
+        boolean insideQuotes = false;
+        boolean insideBraces = false;
+
         for (String character : arrayListRECharacters) {
+            if (!insideQuotes && character.equals("\"")) {
+                insideQuotes = true;
+
+                stringBuilder.append(character);
+
+                continue;
+            } else if (insideQuotes && !character.equals("\"")) {
+                stringBuilder.append(character);
+
+                continue;
+            } else if (character.equals("\"")) {
+                insideQuotes = false;
+
+                stringBuilder.append(character);
+            }
+
+            if (!insideBraces && character.equals("}")) {
+                insideBraces = true;
+
+                stringBuilder.append(character);
+
+                continue;
+            } else if (insideBraces && !character.equals("{")) {
+                stringBuilder.append(character);
+
+                continue;
+            } else if (character.equals("{")) {
+                insideBraces = false;
+
+                stringBuilder.append(character);
+            }
+
             switch (character) {
                 case "?", "*", "+" -> {
                     /*La pila se usa para almacenar temporalmente los nodos, antes de que se usen para armar el árbol.
@@ -42,8 +77,6 @@ public final class NodeInitializer {  // Ya que la clase no hereda nada de otra 
 
                     NodeHandler node = new NodeHandler(nodeNum, character, op, 0, nodeU, null, leavesAL, followPosAL);
 
-                    treeVisualizer.createAST(false, node);
-
                     stackNodes.push(node);
                 }
                 case ".", "|" -> {
@@ -58,15 +91,25 @@ public final class NodeInitializer {  // Ya que la clase no hereda nada de otra 
 
                     NodeHandler node = new NodeHandler(nodeNum, character, op, 0, nodeL, nodeR, leavesAL, followPosAL);
 
-                    treeVisualizer.createAST(false, node);
-
                     stackNodes.push(node);  // Los nodos que se sacaron de la pila ahora están unidos con el operador.
                 }
                 default -> {
                     Operator foo = Operator.LEAF;
                     int bar = leafNumberAssigner.assignLeafNumber();
 
-                    NodeHandler node = new NodeHandler(nodeNum, character, foo, bar, null, null, leavesAL, followPosAL);
+                    NodeHandler node;
+
+                    if (stringBuilder.length() == 0) {  // Si no se usó el "StringBuilder" solo se envía el carácter.
+                        node = new NodeHandler(nodeNum, character, foo, bar, null, null, leavesAL, followPosAL);
+                    } else {
+                        stringBuilder.reverse();
+
+                        String baz = stringBuilder.toString().replace("\"", "").replace("{", "").replace("}", "");
+
+                        node = new NodeHandler(nodeNum, baz, foo, bar, null, null, leavesAL, followPosAL);
+
+                        stringBuilder.setLength(0);
+                    }
 
                     leavesAL.add(node);
 
@@ -76,8 +119,6 @@ public final class NodeInitializer {  // Ya que la clase no hereda nada de otra 
 
             nodeNum++;
         }
-
-        treeVisualizer.createAST(true, null);
 
         this.rootNode = stackNodes.pop();  // El carácter que se encuentre más a la izquierda será la raíz.
     }
