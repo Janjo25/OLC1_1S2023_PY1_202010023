@@ -2,9 +2,14 @@ package main.java.gui;
 
 import main.java.analyzers.lexical.LexicalAnalysis;
 import main.java.analyzers.syntactic.SyntacticAnalysis;
+import main.java.tree.*;
 
 import javax.swing.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Interface extends JFrame {
     private String selectedFilePath = "";  // Variable global para recordar el último archivo con el que se interactuó.
@@ -41,7 +46,13 @@ public class Interface extends JFrame {
     }
 
     private void buttons() {
-        analyzeInputButton.addActionListener(e -> {
+        /*1. Expresión regular para separar la entrada en líneas individuales.
+         * 2. Se usará un "lookbehind positivo" para no eliminar el punto y coma al usar "split".
+         * 3. Con una expresión regular se obtendrá lo que esta después de la flecha, pero antes del punto y coma.
+         * 4. Se eliminarán todos los espacios de la expresión regular.*/
+        analyzeInputButton.addActionListener(e -> System.out.println("Generar autómata"));
+
+        generateAutomatonButton.addActionListener(e -> {
             String inputTextAreaText = inputTextArea.getText();
 
             LexicalAnalysis scanner = new LexicalAnalysis(new BufferedReader(new StringReader(inputTextAreaText)));
@@ -57,10 +68,62 @@ public class Interface extends JFrame {
                 return;
             }
 
+            String[] inputTextAreaLines = inputTextAreaText.split("\\r?\\n");  // 1.
+
+            for (String line : inputTextAreaLines) {
+                line = line.split("(?<=;)")[0];  // 2.
+
+                Pattern pattern = Pattern.compile("(?<=->\\s).*?(?=;\\s*$)");  // 3.
+
+                Matcher matcher = pattern.matcher(line);
+
+                if (matcher.find()) {
+                    String regExp = "." + matcher.group() + "#";
+
+                    if (regExp.contains("\"") || regExp.contains("{") || regExp.contains("}")) {
+                        String bar = regExp.replaceAll("(?<!\\{|\"|\\w)\\s+|\\s+(?!}|\"|\\w)", "");  // 4.
+
+                        ArrayList<NodeHandler> arrayListLeaves = new ArrayList<>();
+
+                        ArrayList<ArrayList<Object>> arrayListFollowPos = new ArrayList<>();
+
+                        NodeInitializer nodeInitializer = new NodeInitializer(bar, arrayListLeaves, arrayListFollowPos);
+
+                        NodeHandler rootNode = nodeInitializer.getRootNode();
+
+                        TreeVisualizer treeVisualizer = new TreeVisualizer();
+
+                        rootNode.calculateNFL(treeVisualizer);
+
+                        treeVisualizer.createAST(true, null);
+
+                        rootNode.calculateFollowPos();
+
+                        FollowPosHandler followPosHandler = new FollowPosHandler();
+
+                        arrayListFollowPos.sort(Comparator.comparingInt(foo -> (int) foo.get(1)));
+
+                        followPosHandler.printFollowPos(arrayListFollowPos);
+
+                        followPosHandler.createFollowPosTable(arrayListFollowPos);
+
+                        TransitionHandler transitionHandler = new TransitionHandler(
+                                rootNode,
+                                arrayListLeaves,
+                                arrayListFollowPos
+                        );
+
+                        transitionHandler.printTransitions();
+
+                        transitionHandler.createTransitionsTable();
+
+                        transitionHandler.createDFA();
+                    }
+                }
+            }
+
             outputTextArea.setText("No se encontraron errores en la entrada.");
         });
-
-        generateAutomatonButton.addActionListener(e -> System.out.println("Generar autómata"));
 
         openButton.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
