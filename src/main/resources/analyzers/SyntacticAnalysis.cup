@@ -3,40 +3,47 @@ package main.java.analyzers.syntactic;
 import java_cup.runtime.*;
 
 /* Terminals (tokens returned by the scanner). */
-terminal            ALTERNATION, ARROW, ASTERISK, COLON, CONCATENATION, CONJ, DIGIT, IDENTIFIER, LEFT_CURLY_BRACKET, LETTER, PLUS, QUESTION_MARK, RIGHT_CURLY_BRACKET, SEMICOLON, SEPARATOR, STRING, SYMBOL, TILDE;
+terminal            ALTERNATION, ARROW, ASTERISK, COLON, COMMA, CONCATENATION, CONJ, DIGIT, IDENTIFIER, LEFT_CURLY_BRACKET, LETTER, PLUS, QUESTION_MARK, RIGHT_CURLY_BRACKET, SEMICOLON, SEPARATOR, STRING, SYMBOL, TILDE;
 
 /* Non terminals */
-non terminal            characters, code_block, program, range, regular_expression, regular_expression_input, regular_expression_output, sets;
+non terminal            characters, code_block, comma_set, notation, program, range, regular_expression, regular_expression_input, regular_expression_output, sets, tilde_set;
 
 /* The grammar rules */
 start with program;
 
-program ::= LEFT_CURLY_BRACKET code_block RIGHT_CURLY_BRACKET                                               {: System.out.println("Se cumplió la gramática: " + "program"); :}
+program ::= LEFT_CURLY_BRACKET code_block RIGHT_CURLY_BRACKET                                                   {:  :}
 ;
-code_block ::= sets regular_expression_input SEPARATOR SEPARATOR regular_expression_output                  {: System.out.println("Se cumplió la gramática: " + "code_block"); :}
+code_block ::= sets regular_expression_input SEPARATOR SEPARATOR regular_expression_output                      {:  :}
 ;
-sets ::= sets CONJ COLON IDENTIFIER ARROW range TILDE range SEMICOLON                                       {: System.out.println("Se cumplió la gramática: " + "sets-recursión"); :}
-       | CONJ COLON IDENTIFIER ARROW range TILDE range SEMICOLON                                            {: System.out.println("Se cumplió la gramática: " + "sets"); :}
+sets ::= sets CONJ COLON IDENTIFIER ARROW notation SEMICOLON                                                    {:  :}
+       | CONJ COLON IDENTIFIER ARROW notation SEMICOLON                                                         {:  :}
 ;
-range ::= DIGIT                                                                                             {: System.out.println("Se cumplió la gramática: " + "range-DIGIT"); :}
-        | LETTER                                                                                            {: System.out.println("Se cumplió la gramática: " + "range-LETTER"); :}
-        | SYMBOL                                                                                            {: System.out.println("Se cumplió la gramática: " + "range-SYMBOL"); :}
+notation ::= tilde_set                                                                                          {:  :}
+           | comma_set                                                                                          {:  :}
 ;
-regular_expression_input ::= regular_expression_input IDENTIFIER ARROW regular_expression SEMICOLON         {: System.out.println("Se cumplió la gramática: " + "regular_expression_input-recursión"); :}
-                           | IDENTIFIER ARROW regular_expression SEMICOLON                                  {: System.out.println("Se cumplió la gramática: " + "regular_expression_input"); :}
+tilde_set ::= range TILDE range                                                                                 {:  :}
 ;
-regular_expression ::= ALTERNATION regular_expression regular_expression                                    {: System.out.println("Se cumplió la gramática: " + "regular_expression-ALTERNATION"); :}
-                     | ASTERISK regular_expression                                                          {: System.out.println("Se cumplió la gramática: " + "regular_expression-ASTERISK"); :}
-                     | CONCATENATION regular_expression regular_expression                                  {: System.out.println("Se cumplió la gramática: " + "regular_expression-CONCATENATION"); :}
-                     | PLUS regular_expression                                                              {: System.out.println("Se cumplió la gramática: " + "regular_expression-PLUS"); :}
-                     | QUESTION_MARK regular_expression                                                     {: System.out.println("Se cumplió la gramática: " + "regular_expression-QUESTION_MARK"); :}
-                     | characters                                                                           {: System.out.println("Se cumplió la gramática: " + "regular_expression-characters"); :}
+comma_set ::= range COMMA comma_set                                                                             {:  :}
+            | range                                                                                             {:  :}
+;
+range ::= DIGIT                                                                                                 {:  :}
+        | LETTER                                                                                                {:  :}
+        | SYMBOL                                                                                                {:  :}
+;
+regular_expression_input ::= regular_expression_input IDENTIFIER ARROW regular_expression SEMICOLON             {:  :}
+                           | IDENTIFIER ARROW regular_expression SEMICOLON                                      {:  :}
+;
+regular_expression ::= ALTERNATION regular_expression regular_expression                                        {:  :}
+                     | ASTERISK regular_expression                                                              {:  :}
+                     | CONCATENATION regular_expression regular_expression                                      {:  :}
+                     | PLUS regular_expression                                                                  {:  :}
+                     | QUESTION_MARK regular_expression                                                         {:  :}
+                     | characters                                                                               {:  :}
+;
+characters ::= STRING                                                                                           {:  :}
+             | LEFT_CURLY_BRACKET IDENTIFIER RIGHT_CURLY_BRACKET                                                {:  :}
 
 ;
-characters ::= STRING                                                                                       {: System.out.println("Se cumplió la gramática: " + "characters-STRING"); :}
-             | LEFT_CURLY_BRACKET IDENTIFIER RIGHT_CURLY_BRACKET                                            {: System.out.println("Se cumplió la gramática: " + "characters-(L-I-R)"); :}
-
-;
-regular_expression_output ::= regular_expression_output IDENTIFIER COLON STRING SEMICOLON                   {: System.out.println("Se cumplió la gramática: " + "regular_expression_output-recursión"); :}
-                            | IDENTIFIER COLON STRING SEMICOLON                                             {: System.out.println("Se cumplió la gramática: " + "regular_expression_output"); :}
+regular_expression_output ::= regular_expression_output IDENTIFIER COLON STRING SEMICOLON                       {:  :}
+                            | IDENTIFIER COLON STRING SEMICOLON                                                 {:  :}
 ;

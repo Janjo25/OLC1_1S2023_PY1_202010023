@@ -5,9 +5,6 @@
 
 package main.java.analyzers.syntactic;
 
-import java_cup.runtime.*;
-import java_cup.runtime.XMLElement;
-
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
 @SuppressWarnings({"rawtypes"})
@@ -31,13 +28,14 @@ public class SyntacticAnalysis extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\024\000\002\002\004\000\002\004\005\000\002\003" +
-    "\007\000\002\011\013\000\002\011\012\000\002\005\003" +
-    "\000\002\005\003\000\002\005\003\000\002\007\007\000" +
-    "\002\007\006\000\002\006\005\000\002\006\004\000\002" +
-    "\006\005\000\002\006\004\000\002\006\004\000\002\006" +
-    "\003\000\002\002\003\000\002\002\005\000\002\010\007" +
-    "\000\002\010\006" });
+    "\000\031\000\002\002\004\000\002\006\005\000\002\003" +
+    "\007\000\002\013\011\000\002\013\010\000\002\005\003" +
+    "\000\002\005\003\000\002\014\005\000\002\004\005\000" +
+    "\002\004\003\000\002\007\003\000\002\007\003\000\002" +
+    "\007\003\000\002\011\007\000\002\011\006\000\002\010" +
+    "\005\000\002\010\004\000\002\010\005\000\002\010\004" +
+    "\000\002\010\004\000\002\010\003\000\002\002\003\000" +
+    "\002\002\005\000\002\012\007\000\002\012\006" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -45,56 +43,59 @@ public class SyntacticAnalysis extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\077\000\004\014\005\001\002\000\004\002\101\001" +
-    "\002\000\004\011\007\001\002\000\004\020\100\001\002" +
-    "\000\004\007\071\001\002\000\006\011\011\013\012\001" +
+    "\000\103\000\004\015\005\001\002\000\004\002\105\001" +
+    "\002\000\004\012\007\001\002\000\004\021\104\001\002" +
+    "\000\004\007\077\001\002\000\006\012\011\014\012\001" +
     "\002\000\004\007\057\001\002\000\004\005\054\001\002" +
-    "\000\006\013\014\022\015\001\002\000\004\005\030\001" +
-    "\002\000\004\022\016\001\002\000\004\013\020\001\002" +
-    "\000\006\013\024\020\uffff\001\002\000\004\007\021\001" +
-    "\002\000\004\023\022\001\002\000\004\021\023\001\002" +
-    "\000\006\013\uffee\020\uffee\001\002\000\004\007\025\001" +
-    "\002\000\004\023\026\001\002\000\004\021\027\001\002" +
-    "\000\006\013\uffef\020\uffef\001\002\000\020\004\037\006" +
-    "\035\010\036\014\031\016\033\017\041\023\034\001\002" +
-    "\000\004\013\052\001\002\000\022\004\ufff2\006\ufff2\010" +
-    "\ufff2\014\ufff2\016\ufff2\017\ufff2\021\ufff2\023\ufff2\001\002" +
-    "\000\020\004\037\006\035\010\036\014\031\016\033\017" +
-    "\041\023\034\001\002\000\022\004\ufff1\006\ufff1\010\ufff1" +
-    "\014\ufff1\016\ufff1\017\ufff1\021\ufff1\023\ufff1\001\002\000" +
-    "\020\004\037\006\035\010\036\014\031\016\033\017\041" +
-    "\023\034\001\002\000\020\004\037\006\035\010\036\014" +
-    "\031\016\033\017\041\023\034\001\002\000\020\004\037" +
-    "\006\035\010\036\014\031\016\033\017\041\023\034\001" +
-    "\002\000\004\021\043\001\002\000\020\004\037\006\035" +
-    "\010\036\014\031\016\033\017\041\023\034\001\002\000" +
-    "\022\004\ufff3\006\ufff3\010\ufff3\014\ufff3\016\ufff3\017\ufff3" +
-    "\021\ufff3\023\ufff3\001\002\000\006\013\ufff9\022\ufff9\001" +
-    "\002\000\020\004\037\006\035\010\036\014\031\016\033" +
-    "\017\041\023\034\001\002\000\022\004\ufff7\006\ufff7\010" +
-    "\ufff7\014\ufff7\016\ufff7\017\ufff7\021\ufff7\023\ufff7\001\002" +
-    "\000\020\004\037\006\035\010\036\014\031\016\033\017" +
-    "\041\023\034\001\002\000\022\004\ufff5\006\ufff5\010\ufff5" +
-    "\014\ufff5\016\ufff5\017\ufff5\021\ufff5\023\ufff5\001\002\000" +
-    "\022\004\ufff6\006\ufff6\010\ufff6\014\ufff6\016\ufff6\017\ufff6" +
-    "\021\ufff6\023\ufff6\001\002\000\022\004\ufff4\006\ufff4\010" +
-    "\ufff4\014\ufff4\016\ufff4\017\ufff4\021\ufff4\023\ufff4\001\002" +
-    "\000\004\020\053\001\002\000\022\004\ufff0\006\ufff0\010" +
-    "\ufff0\014\ufff0\016\ufff0\017\ufff0\021\ufff0\023\ufff0\001\002" +
-    "\000\020\004\037\006\035\010\036\014\031\016\033\017" +
-    "\041\023\034\001\002\000\004\021\056\001\002\000\006" +
-    "\013\ufff8\022\ufff8\001\002\000\004\013\060\001\002\000" +
-    "\004\005\061\001\002\000\010\012\065\015\063\024\064" +
-    "\001\002\000\004\025\066\001\002\000\006\021\ufffb\025" +
-    "\ufffb\001\002\000\006\021\ufffa\025\ufffa\001\002\000\006" +
-    "\021\ufffc\025\ufffc\001\002\000\010\012\065\015\063\024" +
-    "\064\001\002\000\004\021\070\001\002\000\006\011\ufffe" +
-    "\013\ufffe\001\002\000\004\013\072\001\002\000\004\005" +
-    "\073\001\002\000\010\012\065\015\063\024\064\001\002" +
-    "\000\004\025\075\001\002\000\010\012\065\015\063\024" +
-    "\064\001\002\000\004\021\077\001\002\000\006\011\ufffd" +
-    "\013\ufffd\001\002\000\004\002\000\001\002\000\004\002" +
-    "\001\001\002" });
+    "\000\006\014\014\023\015\001\002\000\004\005\030\001" +
+    "\002\000\004\023\016\001\002\000\004\014\020\001\002" +
+    "\000\006\014\024\021\uffff\001\002\000\004\007\021\001" +
+    "\002\000\004\024\022\001\002\000\004\022\023\001\002" +
+    "\000\006\014\uffe9\021\uffe9\001\002\000\004\007\025\001" +
+    "\002\000\004\024\026\001\002\000\004\022\027\001\002" +
+    "\000\006\014\uffea\021\uffea\001\002\000\020\004\037\006" +
+    "\035\011\036\015\031\017\033\020\041\024\034\001\002" +
+    "\000\004\014\052\001\002\000\022\004\uffed\006\uffed\011" +
+    "\uffed\015\uffed\017\uffed\020\uffed\022\uffed\024\uffed\001\002" +
+    "\000\020\004\037\006\035\011\036\015\031\017\033\020" +
+    "\041\024\034\001\002\000\022\004\uffec\006\uffec\011\uffec" +
+    "\015\uffec\017\uffec\020\uffec\022\uffec\024\uffec\001\002\000" +
+    "\020\004\037\006\035\011\036\015\031\017\033\020\041" +
+    "\024\034\001\002\000\020\004\037\006\035\011\036\015" +
+    "\031\017\033\020\041\024\034\001\002\000\020\004\037" +
+    "\006\035\011\036\015\031\017\033\020\041\024\034\001" +
+    "\002\000\004\022\043\001\002\000\020\004\037\006\035" +
+    "\011\036\015\031\017\033\020\041\024\034\001\002\000" +
+    "\022\004\uffee\006\uffee\011\uffee\015\uffee\017\uffee\020\uffee" +
+    "\022\uffee\024\uffee\001\002\000\006\014\ufff4\023\ufff4\001" +
+    "\002\000\020\004\037\006\035\011\036\015\031\017\033" +
+    "\020\041\024\034\001\002\000\022\004\ufff2\006\ufff2\011" +
+    "\ufff2\015\ufff2\017\ufff2\020\ufff2\022\ufff2\024\ufff2\001\002" +
+    "\000\020\004\037\006\035\011\036\015\031\017\033\020" +
+    "\041\024\034\001\002\000\022\004\ufff0\006\ufff0\011\ufff0" +
+    "\015\ufff0\017\ufff0\020\ufff0\022\ufff0\024\ufff0\001\002\000" +
+    "\022\004\ufff1\006\ufff1\011\ufff1\015\ufff1\017\ufff1\020\ufff1" +
+    "\022\ufff1\024\ufff1\001\002\000\022\004\uffef\006\uffef\011" +
+    "\uffef\015\uffef\017\uffef\020\uffef\022\uffef\024\uffef\001\002" +
+    "\000\004\021\053\001\002\000\022\004\uffeb\006\uffeb\011" +
+    "\uffeb\015\uffeb\017\uffeb\020\uffeb\022\uffeb\024\uffeb\001\002" +
+    "\000\020\004\037\006\035\011\036\015\031\017\033\020" +
+    "\041\024\034\001\002\000\004\022\056\001\002\000\006" +
+    "\014\ufff3\023\ufff3\001\002\000\004\014\060\001\002\000" +
+    "\004\005\061\001\002\000\010\013\070\016\065\025\066" +
+    "\001\002\000\004\022\ufffc\001\002\000\010\010\072\022" +
+    "\ufff8\026\073\001\002\000\004\022\ufffb\001\002\000\010" +
+    "\010\ufff6\022\ufff6\026\ufff6\001\002\000\010\010\ufff5\022" +
+    "\ufff5\026\ufff5\001\002\000\004\022\071\001\002\000\010" +
+    "\010\ufff7\022\ufff7\026\ufff7\001\002\000\006\012\ufffe\014" +
+    "\ufffe\001\002\000\010\013\070\016\065\025\066\001\002" +
+    "\000\010\013\070\016\065\025\066\001\002\000\004\022" +
+    "\ufffa\001\002\000\006\010\072\022\ufff8\001\002\000\004" +
+    "\022\ufff9\001\002\000\004\014\100\001\002\000\004\005" +
+    "\101\001\002\000\010\013\070\016\065\025\066\001\002" +
+    "\000\004\022\103\001\002\000\006\012\ufffd\014\ufffd\001" +
+    "\002\000\004\002\000\001\002\000\004\002\001\001\002" +
+    "" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -102,30 +103,33 @@ public class SyntacticAnalysis extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\077\000\004\004\003\001\001\000\002\001\001\000" +
-    "\006\003\005\011\007\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\007\012\001\001\000\002\001\001\000" +
+    "\000\103\000\004\006\003\001\001\000\002\001\001\000" +
+    "\006\003\005\013\007\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\011\012\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\010\016\001\001\000\002\001\001\000" +
+    "\001\001\000\004\012\016\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\006\002\031\006\037\001\001" +
-    "\000\002\001\001\000\002\001\001\000\006\002\031\006" +
-    "\050\001\001\000\002\001\001\000\006\002\031\006\047" +
-    "\001\001\000\006\002\031\006\045\001\001\000\006\002" +
-    "\031\006\043\001\001\000\002\001\001\000\006\002\031" +
-    "\006\041\001\001\000\002\001\001\000\002\001\001\000" +
-    "\006\002\031\006\044\001\001\000\002\001\001\000\006" +
-    "\002\031\006\046\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\006\002\031\010\037\001\001" +
+    "\000\002\001\001\000\002\001\001\000\006\002\031\010" +
+    "\050\001\001\000\002\001\001\000\006\002\031\010\047" +
+    "\001\001\000\006\002\031\010\045\001\001\000\006\002" +
+    "\031\010\043\001\001\000\002\001\001\000\006\002\031" +
+    "\010\041\001\001\000\002\001\001\000\002\001\001\000" +
+    "\006\002\031\010\044\001\001\000\002\001\001\000\006" +
+    "\002\031\010\046\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\006\002\031\006\054\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\005\061\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\005\066\001\001" +
+    "\000\006\002\031\010\054\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\012" +
+    "\004\063\005\066\007\062\014\061\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\004\005\073\001\001\000\002\001\001" +
-    "\000\004\005\075\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001" });
+    "\002\001\001\000\006\004\075\007\074\001\001\000\004" +
+    "\007\073\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\012" +
+    "\004\063\005\101\007\062\014\061\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -205,8 +209,8 @@ class CUP$SyntacticAnalysis$actions {
           case 1: // program ::= LEFT_CURLY_BRACKET code_block RIGHT_CURLY_BRACKET 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "program"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("program",2, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-2)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("program",4, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-2)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
@@ -214,161 +218,206 @@ class CUP$SyntacticAnalysis$actions {
           case 2: // code_block ::= sets regular_expression_input SEPARATOR SEPARATOR regular_expression_output 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "code_block"); 
+		  
               CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("code_block",1, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-4)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // sets ::= sets CONJ COLON IDENTIFIER ARROW range TILDE range SEMICOLON 
+          case 3: // sets ::= sets CONJ COLON IDENTIFIER ARROW notation SEMICOLON 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "sets-recursión"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("sets",7, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-8)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("sets",9, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-6)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // sets ::= CONJ COLON IDENTIFIER ARROW range TILDE range SEMICOLON 
+          case 4: // sets ::= CONJ COLON IDENTIFIER ARROW notation SEMICOLON 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "sets"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("sets",7, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-7)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("sets",9, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-5)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // range ::= DIGIT 
+          case 5: // notation ::= tilde_set 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "range-DIGIT"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("range",3, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("notation",3, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // range ::= LETTER 
+          case 6: // notation ::= comma_set 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "range-LETTER"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("range",3, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("notation",3, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // range ::= SYMBOL 
+          case 7: // tilde_set ::= range TILDE range 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "range-SYMBOL"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("range",3, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("tilde_set",10, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-2)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // regular_expression_input ::= regular_expression_input IDENTIFIER ARROW regular_expression SEMICOLON 
+          case 8: // comma_set ::= range COMMA comma_set 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "regular_expression_input-recursión"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression_input",5, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-4)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("comma_set",2, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-2)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // regular_expression_input ::= IDENTIFIER ARROW regular_expression SEMICOLON 
+          case 9: // comma_set ::= range 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "regular_expression_input"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression_input",5, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-3)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("comma_set",2, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // regular_expression ::= ALTERNATION regular_expression regular_expression 
+          case 10: // range ::= DIGIT 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "regular_expression-ALTERNATION"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",4, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-2)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("range",5, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // regular_expression ::= ASTERISK regular_expression 
+          case 11: // range ::= LETTER 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "regular_expression-ASTERISK"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",4, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-1)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("range",5, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // regular_expression ::= CONCATENATION regular_expression regular_expression 
+          case 12: // range ::= SYMBOL 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "regular_expression-CONCATENATION"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",4, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-2)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("range",5, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // regular_expression ::= PLUS regular_expression 
+          case 13: // regular_expression_input ::= regular_expression_input IDENTIFIER ARROW regular_expression SEMICOLON 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "regular_expression-PLUS"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",4, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-1)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression_input",7, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-4)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // regular_expression ::= QUESTION_MARK regular_expression 
+          case 14: // regular_expression_input ::= IDENTIFIER ARROW regular_expression SEMICOLON 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "regular_expression-QUESTION_MARK"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",4, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-1)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression_input",7, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-3)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // regular_expression ::= characters 
+          case 15: // regular_expression ::= ALTERNATION regular_expression regular_expression 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "regular_expression-characters"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",4, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",6, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-2)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // characters ::= STRING 
+          case 16: // regular_expression ::= ASTERISK regular_expression 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "characters-STRING"); 
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",6, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-1)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+            }
+          return CUP$SyntacticAnalysis$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 17: // regular_expression ::= CONCATENATION regular_expression regular_expression 
+            {
+              Object RESULT =null;
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",6, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-2)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+            }
+          return CUP$SyntacticAnalysis$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 18: // regular_expression ::= PLUS regular_expression 
+            {
+              Object RESULT =null;
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",6, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-1)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+            }
+          return CUP$SyntacticAnalysis$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 19: // regular_expression ::= QUESTION_MARK regular_expression 
+            {
+              Object RESULT =null;
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",6, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-1)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+            }
+          return CUP$SyntacticAnalysis$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 20: // regular_expression ::= characters 
+            {
+              Object RESULT =null;
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression",6, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+            }
+          return CUP$SyntacticAnalysis$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 21: // characters ::= STRING 
+            {
+              Object RESULT =null;
+		  
               CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("characters",0, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // characters ::= LEFT_CURLY_BRACKET IDENTIFIER RIGHT_CURLY_BRACKET 
+          case 22: // characters ::= LEFT_CURLY_BRACKET IDENTIFIER RIGHT_CURLY_BRACKET 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "characters-(L-I-R)"); 
+		  
               CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("characters",0, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-2)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // regular_expression_output ::= regular_expression_output IDENTIFIER COLON STRING SEMICOLON 
+          case 23: // regular_expression_output ::= regular_expression_output IDENTIFIER COLON STRING SEMICOLON 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "regular_expression_output-recursión"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression_output",6, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-4)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression_output",8, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-4)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // regular_expression_output ::= IDENTIFIER COLON STRING SEMICOLON 
+          case 24: // regular_expression_output ::= IDENTIFIER COLON STRING SEMICOLON 
             {
               Object RESULT =null;
-		 System.out.println("Se cumplió la gramática: " + "regular_expression_output"); 
-              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression_output",6, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-3)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
+		  
+              CUP$SyntacticAnalysis$result = parser.getSymbolFactory().newSymbol("regular_expression_output",8, ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.elementAt(CUP$SyntacticAnalysis$top-3)), ((java_cup.runtime.Symbol)CUP$SyntacticAnalysis$stack.peek()), RESULT);
             }
           return CUP$SyntacticAnalysis$result;
 
